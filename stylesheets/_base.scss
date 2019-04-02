@@ -43,10 +43,10 @@ iframe {
 
 .add {
   display: inline-block;
-  margin-top: 17px;
+  margin-top: 18.5px;
   margin-left: 10px;
   font-weight: bold;
-  color: $teal;
+  color: $light-grey;
   vertical-align: top;
 }
 
@@ -57,7 +57,7 @@ strong {
 }
 
 .add:hover {
-  color: $light-teal;
+  color: $darkest-gray;
 }
 
 .add i {
@@ -144,7 +144,7 @@ h2 {
   .fa-pencil {
     position: relative;
     top: -2px;
-    display: none;
+    color: transparent;
     cursor: pointer;
   }
 }
@@ -152,7 +152,7 @@ h2 {
 .board-name-container:hover {
   .fa-pencil {
     display: inline-block;
-    margin-right: 10px;
+    color: unset;
   }
 }
 

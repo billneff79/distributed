@@ -7,16 +7,14 @@ button,
   font-family: 'Roboto', sans-serif;
   color: white;
   cursor: pointer;
-  background: $light-teal;
+  background: $red;
   border: 0;
-  border-bottom: 2px solid $dark-blue;
   border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
 
   &.first {
     min-width: 80px;
-    background: $purple;
     font-size: 11px;
-    border-bottom: 2px solid $light-purple;
   }
 
   &:disabled {
@@ -34,7 +32,6 @@ button,
 header button:hover {
   position: relative;
   top: 2px;
-  margin-bottom: 2px;
   border-bottom: 0;
 }
 

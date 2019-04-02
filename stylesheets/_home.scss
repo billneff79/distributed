@@ -60,8 +60,7 @@
     font-size: 3em;
 
     img {
-      width: 35px;
-      margin-right: 15px;
+      height: 48px;
     }
   }
 
@@ -153,8 +152,6 @@
     margin: 60px auto;
     font-size: 16px;
     color: white;
-    background: $purple;
-    border-bottom: 3px solid $light-purple;
 
     &.alone {
       margin: 0 auto;

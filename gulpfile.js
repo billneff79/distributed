@@ -4,6 +4,7 @@ var gulp = require("gulp"),
   Server = require("karma").Server,
   concat = require("gulp-concat"),
   gp_rename = require("gulp-rename"),
+  replace = require("gulp-replace"),
   uglify = require("gulp-uglify"),
   concatCss = require("gulp-concat-css"),
   uglifycss = require("gulp-uglifycss"),
@@ -81,6 +82,9 @@ var bundleVendorJS = function() {
       "node_modules/vanilla-emoji-picker/dist/emojiPicker.min.js",
       "node_modules/jspdf/dist/jspdf.min.js"
     ])
+    .pipe(replace("YOUR_API_KEY", process.env.FB_API_KEY))
+    .pipe(replace("YOUR_PROJECT_ID", process.env.FB_PROJECT_ID))
+    .pipe(replace("YOUR_MESSAGE_ID", process.env.FB_MESSAGE_ID))
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest("dist"));
 };

@@ -3,8 +3,9 @@ Easy to use and beautiful restrospective board.
 
 Learn more about retrospectives at [funretrospectives.com](http://funretrospectives.com)
 
-[![Build](https://travis-ci.org/funretro/distributed.svg?branch=master)](https://travis-ci.org/funretro/distributed)
-<a href="https://codeclimate.com/github/funretro/distributed"><img src="https://codeclimate.com/github/glauberramos/fireideaz/badges/gpa.svg" /></a>&nbsp;[![devDependency Status](https://david-dm.org/funretro/distributed/dev-status.svg)](https://david-dm.org/funretro/distributed#info=devDependencies)
+[![Build Status](https://travis-ci.com/billneff79/distributed.svg?branch=master)](https://travis-ci.com/billneff79/distributed)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3677ef21-5db2-4a15-8503-472698336f6c/deploy-status)](https://app.netlify.com/sites/synaretro/deploys)
+
 
 ## How to setup local environment
 

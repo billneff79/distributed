@@ -18,9 +18,7 @@ describe('VoteService: ', function() {
 
   describe('returnNumberOfVotes', function() {
     it('should return number of votes', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":1,"abd":3,"sef":2}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":1,"abd":3,"sef":2}');
       expect(
         voteService.returnNumberOfVotes('userId', ['abc', 'abd', 'sef'])
       ).to.equal(6);
@@ -28,17 +26,13 @@ describe('VoteService: ', function() {
     });
 
     it('should return number of votes of 3', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":3}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":3}');
       expect(voteService.returnNumberOfVotes('userId', ['abc'])).to.equal(3);
       localStorage.getItem.restore();
     });
 
     it('should return number of votes of 5 when message was deleted', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":3, "avc": 2, "afe": 2}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":3, "avc": 2, "afe": 2}');
       expect(
         voteService.returnNumberOfVotes('userId', ['abc', 'avc'])
       ).to.equal(5);
@@ -46,9 +40,7 @@ describe('VoteService: ', function() {
     });
 
     it('should return zero if there is no board', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return null;
-      });
+      sinon.stub(localStorage, 'getItem').returns(null);
       expect(voteService.returnNumberOfVotes('userId')).to.equal(0);
       localStorage.getItem.restore();
     });
@@ -56,9 +48,7 @@ describe('VoteService: ', function() {
 
   describe('returnNumberOfVotesOnMessage', function() {
     it('should return array containing 1 element for each vote on a message', function() {
-      sinon.stub(voteService, 'returnNumberOfVotesOnMessage', function() {
-        return 3;
-      });
+      sinon.stub(voteService, 'returnNumberOfVotesOnMessage').returns(3);
 
       var array = voteService.getNumberOfVotesOnMessage('userId', 'abc');
 
@@ -66,9 +56,7 @@ describe('VoteService: ', function() {
     });
 
     it('should return empty array', function() {
-      sinon.stub(voteService, 'returnNumberOfVotesOnMessage', function() {
-        return 0;
-      });
+      sinon.stub(voteService, 'returnNumberOfVotesOnMessage').returns(0);
 
       var array = voteService.getNumberOfVotesOnMessage('userId', 'abc');
 
@@ -76,9 +64,7 @@ describe('VoteService: ', function() {
     });
 
     it('should return number of votes', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":1,"abd":3,"sef":2}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":1,"abd":3,"sef":2}');
       expect(
         voteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(1);
@@ -86,9 +72,7 @@ describe('VoteService: ', function() {
     });
 
     it('should return number of votes of 3', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":3}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":3}');
       expect(
         voteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(3);
@@ -96,9 +80,7 @@ describe('VoteService: ', function() {
     });
 
     it('should return zero if there is no board', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return null;
-      });
+      sinon.stub(localStorage, 'getItem').returns(null);
       expect(
         voteService.returnNumberOfVotesOnMessage('userId', 'abc')
       ).to.equal(0);
@@ -108,17 +90,13 @@ describe('VoteService: ', function() {
 
   describe('remainingVotes', function() {
     it('should return remaining votes 3', function() {
-      sinon.stub(voteService, 'returnNumberOfVotes', function() {
-        return 2;
-      });
+      sinon.stub(voteService, 'returnNumberOfVotes').returns(2);
       expect(voteService.remainingVotes('userId', 5, [])).to.equal(3);
       voteService.returnNumberOfVotes.restore();
     });
 
     it('should return remaining votes 0', function() {
-      sinon.stub(voteService, 'returnNumberOfVotes', function() {
-        return 5;
-      });
+      sinon.stub(voteService, 'returnNumberOfVotes').returns(5);
       expect(voteService.remainingVotes('userId', 5)).to.equal(0);
       voteService.returnNumberOfVotes.restore();
     });
@@ -126,9 +104,7 @@ describe('VoteService: ', function() {
 
   describe('increase messages', function() {
     it('should set user message votes to 1', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return null;
-      });
+      sinon.stub(localStorage, 'getItem').returns(null);
       sinon.spy(localStorage, 'setItem');
 
       voteService.increaseMessageVotes('userId', 'abc');
@@ -140,9 +116,7 @@ describe('VoteService: ', function() {
     });
 
     it('should increase user message votes to 2', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":1}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":1}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.increaseMessageVotes('userId', 'abc');
@@ -154,9 +128,7 @@ describe('VoteService: ', function() {
     });
 
     it('should increase user message votes to 5', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":4,"abd":3}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":4,"abd":3}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.increaseMessageVotes('userId', 'abc');
@@ -171,9 +143,7 @@ describe('VoteService: ', function() {
 
   describe('decrease messages', function() {
     it('should remove from localStorage if votes equal to 1', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":1}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":1}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.decreaseMessageVotes('userId', 'abc');
@@ -185,9 +155,7 @@ describe('VoteService: ', function() {
     });
 
     it('should remove from localStorage if votes equal to -1', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":-1}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":-1}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.decreaseMessageVotes('userId', 'abc');
@@ -199,9 +167,7 @@ describe('VoteService: ', function() {
     });
 
     it('should decrease votes', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":3}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":3}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.decreaseMessageVotes('userId', 'abc');
@@ -213,9 +179,7 @@ describe('VoteService: ', function() {
     });
 
     it('should decrease user message votes to 4', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":5,"abd":3}';
-      });
+      sinon.stub(localStorage, 'getItem').returns('{"abc":5,"abd":3}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.decreaseMessageVotes('userId', 'abc');
@@ -230,11 +194,9 @@ describe('VoteService: ', function() {
 
   describe('merge messages', function() {
     it('should merge messages votes', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":5,"abf":3,"abd":2}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":5,"abf":3,"abd":2}');
       sinon.spy(localStorage, 'setItem');
-
+      
       voteService.mergeMessages('userId', 'abc', 'abf');
 
       expect(localStorage.setItem.calledWith('userId', '{"abf":8,"abd":2}')).to
@@ -245,9 +207,7 @@ describe('VoteService: ', function() {
     });
 
     it('should not merge messages votes if drag is zero', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abf":3,"abd":2}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abf":3,"abd":2}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.mergeMessages('userId', 'abc', 'abf');
@@ -259,9 +219,7 @@ describe('VoteService: ', function() {
     });
 
     it('should merge messages votes if drop is zero', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":3,"abd":2}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":3,"abd":2}');
       sinon.spy(localStorage, 'setItem');
 
       voteService.mergeMessages('userId', 'abc', 'abf');
@@ -276,33 +234,25 @@ describe('VoteService: ', function() {
 
   describe('control votes', function() {
     it('should be able to unvote if votes equal to 3', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":2,"afe":1}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":2,"afe":1}');
       expect(voteService.canUnvoteMessage('userId', 'abc')).to.be.true;
       localStorage.getItem.restore();
     });
 
     it('should not be able to unvote if votes equal to 0', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return null;
-      });
+     sinon.stub(localStorage, 'getItem').returns(null);
       expect(voteService.canUnvoteMessage('userId', 'abc')).to.be.false;
       localStorage.getItem.restore();
     });
 
     it('should return true if still has votes', function() {
-      sinon.stub(localStorage, 'getItem', function() {
-        return '{"abc":2,"abd":2}';
-      });
+     sinon.stub(localStorage, 'getItem').returns('{"abc":2,"abd":2}');
       expect(voteService.isAbleToVote('abc', 5)).to.be.true;
       localStorage.getItem.restore();
     });
 
     it('should return false if does not have votes', function() {
-      sinon.stub(voteService, 'remainingVotes', function() {
-        return 0;
-      });
+     sinon.stub(voteService, 'remainingVotes').returns(0);
       expect(voteService.isAbleToVote('abc', 5)).to.be.false;
       voteService.remainingVotes.restore();
     });
@@ -322,9 +272,7 @@ describe('VoteService: ', function() {
   describe('vote limits', function() {
     it('is able to increment the maximum number of votes allowed per user', function() {
       var updateSpy = sinon.spy();
-      sinon.stub(firebaseService, 'getBoardRef', function() {
-        return { update: updateSpy };
-      });
+     sinon.stub(firebaseService, 'getBoardRef').returns({ update: updateSpy });
 
       voteService.incrementMaxVotes(123, 1);
       expect(updateSpy.calledWith({ max_votes: 2 })).to.be.true;
@@ -332,9 +280,7 @@ describe('VoteService: ', function() {
 
     it('is not able to increment the maximum number of votes allowed per user if bigger than 99', function() {
       var updateSpy = sinon.spy();
-      sinon.stub(firebaseService, 'getBoardRef', function() {
-        return { update: updateSpy };
-      });
+     sinon.stub(firebaseService, 'getBoardRef').returns({ update: updateSpy });
 
       voteService.incrementMaxVotes(123, 99);
       expect(updateSpy.called).to.be.false;
@@ -342,9 +288,7 @@ describe('VoteService: ', function() {
 
     it('is able to decrement the maximum number of votes allowed per user', function() {
       var updateSpy = sinon.spy();
-      sinon.stub(firebaseService, 'getBoardRef', function() {
-        return { update: updateSpy };
-      });
+     sinon.stub(firebaseService, 'getBoardRef').returns({ update: updateSpy });
 
       voteService.decrementMaxVotes(123, 3);
       expect(updateSpy.calledWith({ max_votes: 2 })).to.be.true;
@@ -352,21 +296,15 @@ describe('VoteService: ', function() {
   });
 
   it('should vote on a message', function() {
-    sinon.stub(firebaseService, 'getServerTimestamp', function() {
-      return '00:00:00';
-    });
-    sinon.stub(voteService, 'isAbleToVote', function() {
-      return true;
-    });
+   sinon.stub(firebaseService, 'getServerTimestamp').returns('00:00:00');
+   sinon.stub(voteService, 'isAbleToVote').returns(true);
     var updateSpy = sinon.spy();
-    sinon.stub(firebaseService, 'getMessagesRef', function() {
-      return {
-        child: function() {
-          return {
-            update: updateSpy
-          };
-        }
-      };
+    sinon.stub(firebaseService, 'getMessagesRef').returns({
+      child: function() {
+        return {
+          update: updateSpy
+        };
+      }
     });
 
     sinon.spy(voteService, 'increaseMessageVotes');
@@ -379,22 +317,16 @@ describe('VoteService: ', function() {
   });
 
   it('should unvote a message', function() {
-    sinon.stub(firebaseService, 'getServerTimestamp', function() {
-      return '00:00:00';
-    });
-    sinon.stub(voteService, 'canUnvoteMessage', function() {
-      return true;
-    });
+   sinon.stub(firebaseService, 'getServerTimestamp').returns('00:00:00');
+   sinon.stub(voteService, 'canUnvoteMessage').returns(true);
     sinon.spy(voteService, 'decreaseMessageVotes');
     var updateSpy = sinon.spy();
-    sinon.stub(firebaseService, 'getMessagesRef', function() {
-      return {
-        child: function() {
-          return {
-            update: updateSpy
-          };
-        }
-      };
+    sinon.stub(firebaseService, 'getMessagesRef').returns({
+      child: function() {
+        return {
+          update: updateSpy
+        };
+      }
     });
 
     voteService.unvote('userId', 'abc', 5);
@@ -405,22 +337,16 @@ describe('VoteService: ', function() {
   });
 
   it('should not give negative votes to a message with votes -1', function() {
-    sinon.stub(firebaseService, 'getServerTimestamp', function() {
-      return '00:00:00';
-    });
-    sinon.stub(voteService, 'canUnvoteMessage', function() {
-      return true;
-    });
+   sinon.stub(firebaseService, 'getServerTimestamp').returns('00:00:00');
+   sinon.stub(voteService, 'canUnvoteMessage').returns(true);
     sinon.spy(voteService, 'decreaseMessageVotes');
     var updateSpy = sinon.spy();
-    sinon.stub(firebaseService, 'getMessagesRef', function() {
-      return {
-        child: function() {
-          return {
-            update: updateSpy
-          };
-        }
-      };
+    sinon.stub(firebaseService, 'getMessagesRef').returns({
+      child: function() {
+        return {
+          update: updateSpy
+        };
+      }
     });
 
     voteService.unvote('userId', 'abc', -1);
@@ -431,22 +357,16 @@ describe('VoteService: ', function() {
   });
 
   it('should not give negative votes to a message with zero votes', function() {
-    sinon.stub(firebaseService, 'getServerTimestamp', function() {
-      return '00:00:00';
-    });
-    sinon.stub(voteService, 'canUnvoteMessage', function() {
-      return true;
-    });
+   sinon.stub(firebaseService, 'getServerTimestamp').returns('00:00:00');
+   sinon.stub(voteService, 'canUnvoteMessage').returns(true);
     sinon.spy(voteService, 'decreaseMessageVotes');
     var updateSpy = sinon.spy();
-    sinon.stub(firebaseService, 'getMessagesRef', function() {
-      return {
-        child: function() {
-          return {
-            update: updateSpy
-          };
-        }
-      };
+    sinon.stub(firebaseService, 'getMessagesRef').returns({
+      child: function() {
+        return {
+          update: updateSpy
+        };
+      }
     });
 
     voteService.unvote('userId', 'abc', 0);

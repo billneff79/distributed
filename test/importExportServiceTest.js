@@ -83,9 +83,7 @@ describe('ImportExportService: ', function() {
     };
 
     beforeEach(function() {
-      sinon.stub(firebaseService, 'getBoardColumns', function () {
-        return boardColumns;
-      });
+      sinon.stub(firebaseService, 'getBoardColumns').callsFake( function() { return boardColumns; });
     });
 
     before (function (){
@@ -149,7 +147,7 @@ describe('ImportExportService: ', function() {
         {text:'C3R2', user_id: 'userId', type: {id: 1}, date: messageDate, votes: 0}
       ];
 
-      sinon.stub(firebaseService, 'getServerTimestamp', function() { return messageDate });
+      sinon.stub(firebaseService, 'getServerTimestamp').returns(messageDate);
 
       importObject.data = [['Column 1', 'Column 2', 'Column 3'], ['C1R1', 'C2R1', 'C3R1'], ['C1R2', 'C2R2', 'C3R2']];
       importObject.mapping = [

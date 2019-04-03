@@ -123,9 +123,7 @@ angular
       };
 
       $scope.getSortFields = function() {
-        return $scope.sortField === 'votes'
-          ? ['-votes', 'date_created']
-          : 'date_created';
+        return $scope.sortField === 'votes' ? ['-votes', 'date_created'] : 'date_created';
       };
 
       $scope.saveMessage = function(message) {

@@ -79,7 +79,7 @@ angular
       premium: 'X',
     },
     {
-      name: "Display card's author",
+      name: 'Display card\'s author',
       free: '',
       premium: 'X',
     },
@@ -98,4 +98,4 @@ angular
       free: '',
       premium: 'X',
     },
-  ])
+  ]);

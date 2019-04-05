@@ -38,8 +38,17 @@ function livereload() {
 };
 
 var buildHTML = gulp.parallel(
-  function() { return gulp.src("index.html").pipe(gulp.dest("dist")); },
-  function() { return gulp.src("components/*").pipe(gulp.dest("dist/components")); }
+  function() {  
+    return gulp.src("index.html")
+      .pipe(replace("%%SITENAME%%", process.env.SITE_NAME || "SynaRetro"))
+      .pipe(gulp.dest("dist")); 
+  },
+
+  function() { 
+    return gulp.src("components/*")
+      .pipe(replace("%%SITENAME%%", process.env.SITE_NAME || "SynaRetro"))
+      .pipe(gulp.dest("dist/components")); 
+    }
 );
 
 function bundleVendorCSS() {
